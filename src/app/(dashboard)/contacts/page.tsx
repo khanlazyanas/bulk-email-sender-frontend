@@ -1,18 +1,56 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 export default function ContactsPage() {
-  // Fake contacts data for UI
+  // Expanded Fake contacts data for testing Search & Pagination
   const [contacts] = useState([
     { id: 1, name: "Rahul Sharma", email: "rahul.s@example.com", status: "Subscribed", addedOn: "Aug 1, 2026" },
     { id: 2, name: "Amit Kumar", email: "amit.k@techcorp.in", status: "Subscribed", addedOn: "Jul 28, 2026" },
     { id: 3, name: "Priya Singh", email: "priya.design@studio.com", status: "Bounced", addedOn: "Jul 25, 2026" },
     { id: 4, name: "Neha Gupta", email: "neha.g@startup.io", status: "Unsubscribed", addedOn: "Jul 20, 2026" },
     { id: 5, name: "Vikram Verma", email: "vikram.v@agency.com", status: "Subscribed", addedOn: "Jul 15, 2026" },
+    { id: 6, name: "Suresh Raina", email: "suresh.r@sports.io", status: "Subscribed", addedOn: "Jul 10, 2026" },
+    { id: 7, name: "Anita Desai", email: "anita.d@books.com", status: "Bounced", addedOn: "Jul 05, 2026" },
+    { id: 8, name: "Kabir Khan", email: "kabir.k@movies.in", status: "Subscribed", addedOn: "Jun 30, 2026" },
   ]);
 
   const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+
+  // Real-time Filtering Logic (Search + Status)
+  const filteredContacts = useMemo(() => {
+    return contacts.filter((contact) => {
+      const matchesSearch = 
+        contact.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+        contact.email.toLowerCase().includes(searchTerm.toLowerCase());
+      
+      const matchesStatus = 
+        statusFilter === "all" || 
+        contact.status.toLowerCase() === statusFilter.toLowerCase();
+
+      return matchesSearch && matchesStatus;
+    });
+  }, [contacts, searchTerm, statusFilter]);
+
+  // Pagination Logic
+  const totalPages = Math.ceil(filteredContacts.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentData = filteredContacts.slice(startIndex, endIndex);
+
+  // Handlers for Resetting Page on Filter Change
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(1); // Reset to page 1 while searching
+  };
+
+  const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setStatusFilter(e.target.value);
+    setCurrentPage(1); // Reset to page 1 while filtering
+  };
 
   return (
     <div className="space-y-8 relative z-10 pt-4 pb-12">
@@ -40,7 +78,6 @@ export default function ContactsPage() {
             Import CSV
           </button>
           
-          {/* Magic Button for Add Contact */}
           <button className="relative inline-flex h-11 overflow-hidden rounded-xl p-[1px] focus:outline-none group/btn hover:shadow-[0_0_30px_-5px_rgba(168,85,247,0.5)] transition-shadow duration-500">
             <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#c084fc_0%,#4f46e5_50%,#c084fc_100%)] opacity-70 group-hover/btn:opacity-100 transition-opacity" />
             <span className="inline-flex h-full w-full items-center justify-center rounded-xl bg-[#030712] px-6 py-2 text-sm font-bold text-white backdrop-blur-3xl transition-all group-hover/btn:bg-[#030712]/70 gap-2">
@@ -54,7 +91,6 @@ export default function ContactsPage() {
       {/* Database Container */}
       <div className="relative group perspective">
         
-        {/* Outer Glow */}
         <div className="absolute -inset-1 bg-gradient-to-b from-indigo-500/20 to-transparent rounded-[2rem] blur-xl opacity-50 group-hover:opacity-100 transition duration-1000 pointer-events-none"></div>
 
         <div className="relative bg-[#050505]/80 backdrop-blur-3xl border border-white/10 rounded-[1.5rem] shadow-[0_0_80px_-20px_rgba(0,0,0,1)] overflow-hidden">
@@ -74,7 +110,7 @@ export default function ContactsPage() {
                   type="text"
                   placeholder="Query database by name or email..."
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onChange={handleSearchChange}
                   className="w-full pl-11 pr-4 py-2.5 bg-[#0a0a0a] border border-white/10 rounded-xl focus:outline-none text-white placeholder-slate-600 transition-all focus:bg-[#0f0f0f] text-sm font-medium"
                 />
               </div>
@@ -83,7 +119,11 @@ export default function ContactsPage() {
             <div className="w-full sm:w-auto relative group/select">
               <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500/30 to-fuchsia-500/30 rounded-xl blur opacity-0 group-focus-within/select:opacity-100 transition duration-500"></div>
               <div className="relative">
-                <select className="w-full sm:w-auto px-4 py-2.5 bg-[#0a0a0a] border border-white/10 rounded-xl text-sm focus:outline-none text-slate-300 appearance-none pr-10 cursor-pointer">
+                <select 
+                  value={statusFilter}
+                  onChange={handleStatusChange}
+                  className="w-full sm:w-auto px-4 py-2.5 bg-[#0a0a0a] border border-white/10 rounded-xl text-sm focus:outline-none text-slate-300 appearance-none pr-10 cursor-pointer"
+                >
                   <option value="all" className="bg-[#0a0a0a]">All Status</option>
                   <option value="subscribed" className="bg-[#0a0a0a]">Subscribed</option>
                   <option value="bounced" className="bg-[#0a0a0a]">Bounced</option>
@@ -97,7 +137,7 @@ export default function ContactsPage() {
           </div>
 
           {/* Contacts Table */}
-          <div className="overflow-x-auto custom-scrollbar">
+          <div className="overflow-x-auto custom-scrollbar min-h-[300px]">
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-white/[0.02] border-b border-white/5 text-[10px] uppercase tracking-widest text-slate-500 font-bold">
@@ -112,50 +152,72 @@ export default function ContactsPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5">
-                {contacts.map((contact) => (
-                  <tr key={contact.id} className="hover:bg-white/[0.03] transition-colors group">
-                    <td className="px-6 py-4 text-center">
-                      <input type="checkbox" className="rounded border-white/20 bg-[#0a0a0a] accent-indigo-500 cursor-pointer opacity-50 group-hover:opacity-100 transition-opacity" />
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-bold text-slate-200 group-hover:text-white transition-colors">{contact.name}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-slate-400 font-mono tracking-tight group-hover:text-slate-300 transition-colors">{contact.email}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold tracking-wide border ${
-                        contact.status === "Subscribed" ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shadow-[0_0_15px_-3px_rgba(16,185,129,0.2)]" :
-                        contact.status === "Bounced" ? "bg-rose-500/10 text-rose-400 border-rose-500/20 shadow-[0_0_15px_-3px_rgba(244,63,94,0.2)]" :
-                        "bg-slate-500/10 text-slate-400 border-slate-500/20"
-                      }`}>
-                        {contact.status === "Subscribed" && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,1)] animate-pulse"></span>}
-                        {contact.status === "Bounced" && <span className="w-1.5 h-1.5 rounded-full bg-rose-400 shadow-[0_0_8px_rgba(251,113,133,1)]"></span>}
-                        {contact.status === "Unsubscribed" && <span className="w-1.5 h-1.5 rounded-full bg-slate-500"></span>}
-                        {contact.status}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
-                      {contact.addedOn}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-right">
-                      <div className="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <button className="text-slate-400 hover:text-indigo-400 transition-colors font-semibold">Edit</button>
-                        <button className="text-slate-400 hover:text-rose-400 transition-colors font-semibold">Drop</button>
-                      </div>
+                {currentData.length > 0 ? (
+                  currentData.map((contact) => (
+                    <tr key={contact.id} className="hover:bg-white/[0.03] transition-colors group">
+                      <td className="px-6 py-4 text-center">
+                        <input type="checkbox" className="rounded border-white/20 bg-[#0a0a0a] accent-indigo-500 cursor-pointer opacity-50 group-hover:opacity-100 transition-opacity" />
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm font-bold text-slate-200 group-hover:text-white transition-colors">{contact.name}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-slate-400 font-mono tracking-tight group-hover:text-slate-300 transition-colors">{contact.email}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold tracking-wide border ${
+                          contact.status === "Subscribed" ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shadow-[0_0_15px_-3px_rgba(16,185,129,0.2)]" :
+                          contact.status === "Bounced" ? "bg-rose-500/10 text-rose-400 border-rose-500/20 shadow-[0_0_15px_-3px_rgba(244,63,94,0.2)]" :
+                          "bg-slate-500/10 text-slate-400 border-slate-500/20"
+                        }`}>
+                          {contact.status === "Subscribed" && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,1)] animate-pulse"></span>}
+                          {contact.status === "Bounced" && <span className="w-1.5 h-1.5 rounded-full bg-rose-400 shadow-[0_0_8px_rgba(251,113,133,1)]"></span>}
+                          {contact.status === "Unsubscribed" && <span className="w-1.5 h-1.5 rounded-full bg-slate-500"></span>}
+                          {contact.status}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
+                        {contact.addedOn}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-right">
+                        <div className="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <button className="text-slate-400 hover:text-indigo-400 transition-colors font-semibold">Edit</button>
+                          <button className="text-slate-400 hover:text-rose-400 transition-colors font-semibold">Drop</button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={6} className="px-6 py-12 text-center text-slate-500 text-sm font-medium">
+                      No matching records found in the database.
                     </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           </div>
           
-          {/* Pagination Footer */}
-          <div className="px-6 py-4 border-t border-white/5 flex items-center justify-between bg-[#020202]">
-            <p className="text-xs text-slate-500 font-medium">Viewing block <span className="text-white font-bold">1</span> to <span className="text-white font-bold">5</span> of <span className="text-indigo-400 font-bold">4,250</span> records</p>
+          {/* Dynamic Pagination Footer */}
+          <div className="px-6 py-4 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#020202]">
+            <p className="text-xs text-slate-500 font-medium">
+              Viewing block <span className="text-white font-bold">{filteredContacts.length === 0 ? 0 : startIndex + 1}</span> to <span className="text-white font-bold">{Math.min(endIndex, filteredContacts.length)}</span> of <span className="text-indigo-400 font-bold">{filteredContacts.length}</span> records
+            </p>
             <div className="flex gap-2">
-              <button className="px-4 py-1.5 border border-white/10 rounded-lg text-xs font-semibold text-slate-500 bg-[#0a0a0a] disabled:opacity-50 cursor-not-allowed" disabled>Prev</button>
-              <button className="px-4 py-1.5 border border-white/10 rounded-lg text-xs font-semibold text-slate-300 bg-white/[0.05] hover:bg-white/10 hover:text-white transition-colors shadow-sm">Next</button>
+              <button 
+                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className="px-4 py-1.5 border border-white/10 rounded-lg text-xs font-semibold text-slate-300 bg-white/[0.05] hover:bg-white/10 hover:text-white transition-colors shadow-sm disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white/[0.05]"
+              >
+                Prev
+              </button>
+              <button 
+                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                disabled={currentPage === totalPages || totalPages === 0}
+                className="px-4 py-1.5 border border-white/10 rounded-lg text-xs font-semibold text-slate-300 bg-white/[0.05] hover:bg-white/10 hover:text-white transition-colors shadow-sm disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white/[0.05]"
+              >
+                Next
+              </button>
             </div>
           </div>
         </div>

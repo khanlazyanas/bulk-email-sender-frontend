@@ -9,7 +9,13 @@ export default function ComposePage() {
   // Reference for our custom Rich Text Editor
   const editorRef = useRef<HTMLDivElement>(null);
 
-  // Form State Management (Content yahan se hata diya gaya hai)
+  // Custom Modal State for Link & Media (Replaces native prompt)
+  const [modalConfig, setModalConfig] = useState<{ isOpen: boolean; type: "link" | "media" }>({ isOpen: false, type: "link" });
+  const [modalUrl, setModalUrl] = useState("");
+  // Selection save karne ke liye taaki text un-select na ho
+  const savedSelection = useRef<Range | null>(null);
+
+  // Form State Management
   const [formData, setFormData] = useState({
     target: "",
     subject: "",
@@ -26,18 +32,32 @@ export default function ComposePage() {
     editorRef.current?.focus();
   };
 
-  const handleAddLink = () => {
-    const url = prompt("Enter the URL link (e.g., https://example.com):");
-    if (url) {
-      handleFormat("createLink", url);
+  // Open custom modal and save the current text selection
+  const handleOpenModal = (type: "link" | "media") => {
+    const selection = window.getSelection();
+    if (selection && selection.rangeCount > 0) {
+      savedSelection.current = selection.getRangeAt(0);
+    } else {
+      savedSelection.current = null;
     }
+    setModalConfig({ isOpen: true, type });
+    setModalUrl("");
   };
 
-  const handleAddMedia = () => {
-    const url = prompt("Enter the Image URL:");
-    if (url) {
-      handleFormat("insertImage", url);
+  // Insert the URL from the custom modal
+  const handleConfirmUrl = () => {
+    // Restore selection
+    if (editorRef.current) editorRef.current.focus();
+    const selection = window.getSelection();
+    if (selection && savedSelection.current) {
+      selection.removeAllRanges();
+      selection.addRange(savedSelection.current);
     }
+
+    if (modalUrl) {
+      document.execCommand(modalConfig.type === "link" ? "createLink" : "insertImage", false, modalUrl);
+    }
+    setModalConfig({ isOpen: false, type: "link" });
   };
 
   const handleSendEmail = (e: React.FormEvent) => {
@@ -46,7 +66,6 @@ export default function ComposePage() {
     // Grab the final HTML content from our custom editor ONLY on submit
     const finalContent = editorRef.current?.innerHTML || "";
     
-    // Check if empty or just a break tag
     if (!finalContent.trim() || finalContent === "<br>") {
       alert("Holographic message sequence cannot be empty!");
       return;
@@ -60,18 +79,15 @@ export default function ComposePage() {
       setIsSending(false);
       setShowSuccess(true);
       
-      // Reset form fields
       setFormData({
         target: "",
         subject: "",
       });
       
-      // Clear the visual editor perfectly
       if (editorRef.current) {
         editorRef.current.innerHTML = "";
       }
 
-      // Hide success message after 4 seconds
       setTimeout(() => {
         setShowSuccess(false);
       }, 4000);
@@ -138,7 +154,6 @@ export default function ComposePage() {
                   <option value="active" className="bg-[#0a0a0a]">Active Users (2,100 nodes)</option>
                   <option value="inactive" className="bg-[#0a0a0a]">Inactive Users (850 nodes)</option>
                 </select>
-                {/* Custom Select Arrow */}
                 <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                 </div>
@@ -170,6 +185,41 @@ export default function ComposePage() {
               
               <div className="relative border border-white/10 rounded-2xl overflow-hidden bg-[#0a0a0a] flex flex-col transition-all">
                 
+                {/* 🎨 Custom URL Input Modal */}
+                {modalConfig.isOpen && (
+                  <div className="absolute inset-0 z-50 flex items-center justify-center bg-[#020202]/80 backdrop-blur-md">
+                    <div className="bg-[#0f0f0f] border border-white/10 p-6 rounded-2xl w-[90%] max-w-sm shadow-[0_0_50px_-10px_rgba(139,92,246,0.3)] animate-in fade-in zoom-in-95 duration-200">
+                      <h3 className="text-white text-xs font-bold mb-4 uppercase tracking-widest text-center">
+                        {modalConfig.type === "link" ? "Insert Link URL" : "Insert Image URL"}
+                      </h3>
+                      <input
+                        type="url"
+                        autoFocus
+                        value={modalUrl}
+                        onChange={(e) => setModalUrl(e.target.value)}
+                        placeholder="https://..."
+                        className="w-full px-4 py-3 bg-[#050505] border border-white/10 rounded-xl focus:outline-none text-white focus:border-indigo-500/50 transition-colors mb-5 font-medium text-sm"
+                      />
+                      <div className="flex justify-end gap-3">
+                        <button
+                          type="button"
+                          onClick={() => setModalConfig({ isOpen: false, type: "link" })}
+                          className="px-4 py-2 rounded-xl text-sm font-semibold text-slate-400 hover:text-white hover:bg-white/5 transition-colors"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleConfirmUrl}
+                          className="px-6 py-2 rounded-xl text-sm font-bold bg-indigo-500 text-white hover:bg-indigo-600 transition-colors shadow-[0_0_20px_-5px_rgba(99,102,241,0.5)]"
+                        >
+                          Confirm
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {/* Editor Toolbar */}
                 <div className="bg-[#111111] border-b border-white/5 px-4 py-3 flex items-center gap-2 overflow-x-auto custom-scrollbar">
                   <div className="flex bg-white/[0.03] rounded-lg p-1 border border-white/5">
@@ -181,11 +231,11 @@ export default function ComposePage() {
                   <div className="w-px h-6 bg-white/10 mx-2"></div>
                   
                   <div className="flex bg-white/[0.03] rounded-lg p-1 border border-white/5">
-                    <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={handleAddLink} className="px-3 py-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-md text-sm flex items-center gap-2 transition-colors">
+                    <button type="button" onMouseDown={(e) => { e.preventDefault(); handleOpenModal("link"); }} className="px-3 py-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-md text-sm flex items-center gap-2 transition-colors">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
                       Link
                     </button>
-                    <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={handleAddMedia} className="px-3 py-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-md text-sm flex items-center gap-2 transition-colors">
+                    <button type="button" onMouseDown={(e) => { e.preventDefault(); handleOpenModal("media"); }} className="px-3 py-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-md text-sm flex items-center gap-2 transition-colors">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                       Media
                     </button>
@@ -203,7 +253,7 @@ export default function ComposePage() {
                   </select>
                 </div>
                 
-                {/* 🚀 Our Custom contentEditable Div behaving like a textarea without re-render crashes! */}
+                {/* 🚀 Our Custom contentEditable Div */}
                 <div 
                   ref={editorRef}
                   contentEditable

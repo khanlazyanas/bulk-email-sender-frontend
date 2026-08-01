@@ -4,15 +4,41 @@ import { useState } from "react";
 
 export default function ComposePage() {
   const [isSending, setIsSending] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  
+  // Form State Management
+  const [formData, setFormData] = useState({
+    target: "",
+    subject: "",
+    content: ""
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
   const handleSendEmail = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSending(true);
+    setShowSuccess(false);
 
     // Fake API call delay
     setTimeout(() => {
       setIsSending(false);
-      alert("🚀 Holographic Campaign Transmitted Successfully!");
+      setShowSuccess(true);
+      
+      // Reset form after successful transmission
+      setFormData({
+        target: "",
+        subject: "",
+        content: ""
+      });
+
+      // Hide success message after 4 seconds
+      setTimeout(() => {
+        setShowSuccess(false);
+      }, 4000);
     }, 2000);
   };
 
@@ -40,12 +66,22 @@ export default function ComposePage() {
       <div className="relative group perspective">
         
         {/* Animated Glow Behind Card */}
-        <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/20 via-fuchsia-500/20 to-indigo-500/20 rounded-[2rem] blur-xl opacity-60 group-hover:opacity-100 transition duration-1000"></div>
+        <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/20 via-fuchsia-500/20 to-indigo-500/20 rounded-[2rem] blur-xl opacity-60 group-hover:opacity-100 transition duration-1000 pointer-events-none"></div>
         
         <form onSubmit={handleSendEmail} className="relative bg-[#050505]/90 backdrop-blur-3xl border border-white/10 rounded-[1.5rem] shadow-[0_0_80px_-20px_rgba(139,92,246,0.3)] overflow-hidden">
           
           {/* Subtle Glare Effect */}
           <div className="absolute inset-0 z-0 bg-gradient-to-tr from-white/0 via-white/[0.03] to-white/0 translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-[1500ms] ease-in-out pointer-events-none"></div>
+
+          {/* Premium Success Notification */}
+          <div className={`transition-all duration-500 ease-in-out overflow-hidden ${showSuccess ? "max-h-24 opacity-100" : "max-h-0 opacity-0"}`}>
+            <div className="bg-emerald-500/10 border-b border-emerald-500/20 p-4 flex items-center justify-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                <svg className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+              </div>
+              <p className="text-sm font-bold text-emerald-400 tracking-wide">Holographic Campaign Transmitted Successfully!</p>
+            </div>
+          </div>
 
           <div className="p-6 md:p-8 space-y-8 relative z-10">
             
@@ -55,10 +91,13 @@ export default function ComposePage() {
               <div className="relative group/input">
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500/50 to-fuchsia-500/50 rounded-xl blur opacity-0 group-focus-within/input:opacity-100 transition duration-500"></div>
                 <select 
+                  name="target"
+                  value={formData.target}
+                  onChange={handleInputChange}
                   required
                   className="relative w-full px-4 py-3.5 bg-[#0a0a0a] border border-white/10 rounded-xl focus:outline-none text-white appearance-none transition-all focus:bg-[#0f0f0f] cursor-pointer"
                 >
-                  <option value="" className="bg-[#0a0a0a] text-slate-400">Select a target network...</option>
+                  <option value="" disabled className="bg-[#0a0a0a] text-slate-500">Select a target network...</option>
                   <option value="all" className="bg-[#0a0a0a]">All Subscribers (4,250 nodes)</option>
                   <option value="active" className="bg-[#0a0a0a]">Active Users (2,100 nodes)</option>
                   <option value="inactive" className="bg-[#0a0a0a]">Inactive Users (850 nodes)</option>
@@ -77,6 +116,9 @@ export default function ComposePage() {
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500/50 to-fuchsia-500/50 rounded-xl blur opacity-0 group-focus-within/input:opacity-100 transition duration-500"></div>
                 <input 
                   type="text" 
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleInputChange}
                   required
                   placeholder="Enter a high-converting subject line..."
                   className="relative w-full px-4 py-3.5 bg-[#0a0a0a] border border-white/10 rounded-xl focus:outline-none text-white placeholder-slate-600 transition-all focus:bg-[#0f0f0f] font-medium"
@@ -124,6 +166,9 @@ export default function ComposePage() {
                 
                 {/* Editor Textarea */}
                 <textarea 
+                  name="content"
+                  value={formData.content}
+                  onChange={handleInputChange}
                   required
                   rows={10}
                   placeholder="Initiate your message sequence here..."

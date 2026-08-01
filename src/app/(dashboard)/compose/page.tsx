@@ -9,11 +9,10 @@ export default function ComposePage() {
   // Reference for our custom Rich Text Editor
   const editorRef = useRef<HTMLDivElement>(null);
 
-  // Form State Management
+  // Form State Management (Content yahan se hata diya gaya hai)
   const [formData, setFormData] = useState({
     target: "",
     subject: "",
-    content: "" // Ye ab HTML content store karega
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -28,23 +27,28 @@ export default function ComposePage() {
   };
 
   const handleAddLink = () => {
-    const url = prompt("Enter the URL link:");
-    if (url) handleFormat("createLink", url);
+    const url = prompt("Enter the URL link (e.g., https://example.com):");
+    if (url) {
+      handleFormat("createLink", url);
+    }
   };
 
   const handleAddMedia = () => {
     const url = prompt("Enter the Image URL:");
-    if (url) handleFormat("insertImage", url);
+    if (url) {
+      handleFormat("insertImage", url);
+    }
   };
 
   const handleSendEmail = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Grab the final HTML content from our custom editor
+    // Grab the final HTML content from our custom editor ONLY on submit
     const finalContent = editorRef.current?.innerHTML || "";
     
-    if (!finalContent.trim()) {
-      alert("Email content cannot be empty!");
+    // Check if empty or just a break tag
+    if (!finalContent.trim() || finalContent === "<br>") {
+      alert("Holographic message sequence cannot be empty!");
       return;
     }
 
@@ -56,14 +60,13 @@ export default function ComposePage() {
       setIsSending(false);
       setShowSuccess(true);
       
-      // Reset form after successful transmission
+      // Reset form fields
       setFormData({
         target: "",
         subject: "",
-        content: ""
       });
       
-      // Clear the visual editor
+      // Clear the visual editor perfectly
       if (editorRef.current) {
         editorRef.current.innerHTML = "";
       }
@@ -170,7 +173,6 @@ export default function ComposePage() {
                 {/* Editor Toolbar */}
                 <div className="bg-[#111111] border-b border-white/5 px-4 py-3 flex items-center gap-2 overflow-x-auto custom-scrollbar">
                   <div className="flex bg-white/[0.03] rounded-lg p-1 border border-white/5">
-                    {/* Pro Tip: onMouseDown={e => e.preventDefault()} rokk deta hai in buttons ko focus chheen ne se, taaki selected text selected hi rahe! */}
                     <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => handleFormat("bold")} className="p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-md text-sm font-bold w-9 transition-colors">B</button>
                     <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => handleFormat("italic")} className="p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-md text-sm italic w-9 transition-colors">I</button>
                     <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => handleFormat("underline")} className="p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-md text-sm underline w-9 transition-colors">U</button>
@@ -201,13 +203,12 @@ export default function ComposePage() {
                   </select>
                 </div>
                 
-                {/* 🚀 Our Custom contentEditable Div behaving like a textarea */}
+                {/* 🚀 Our Custom contentEditable Div behaving like a textarea without re-render crashes! */}
                 <div 
                   ref={editorRef}
                   contentEditable
                   data-placeholder="Initiate your message sequence here..."
-                  className="w-full p-6 outline-none text-slate-300 bg-transparent min-h-[250px] leading-relaxed custom-scrollbar cursor-text empty:before:content-[attr(data-placeholder)] empty:before:text-slate-600 [&_b]:font-bold [&_i]:italic [&_u]:underline [&_h1]:text-3xl [&_h1]:font-extrabold [&_h1]:text-white [&_h1]:mb-4 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-white [&_h2]:mb-3 [&_a]:text-indigo-400 [&_a]:underline [&_img]:max-w-full [&_img]:rounded-lg [&_img]:my-4"
-                  onInput={(e) => setFormData(prev => ({ ...prev, content: e.currentTarget.innerHTML }))}
+                  className="w-full p-6 outline-none text-slate-300 bg-transparent min-h-[250px] leading-relaxed custom-scrollbar cursor-text empty:before:content-[attr(data-placeholder)] empty:before:text-slate-600 [&_b]:font-bold [&_b]:text-white [&_i]:italic [&_i]:text-white [&_u]:underline [&_h1]:text-3xl [&_h1]:font-extrabold [&_h1]:text-white [&_h1]:mb-4 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-white [&_h2]:mb-3 [&_a]:text-indigo-400 [&_a]:underline [&_img]:max-w-full [&_img]:rounded-lg [&_img]:my-4 [&_img]:border [&_img]:border-white/10"
                 ></div>
               </div>
             </div>

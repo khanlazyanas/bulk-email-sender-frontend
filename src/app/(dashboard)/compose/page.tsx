@@ -1,25 +1,53 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export default function ComposePage() {
   const [isSending, setIsSending] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   
+  // Reference for our custom Rich Text Editor
+  const editorRef = useRef<HTMLDivElement>(null);
+
   // Form State Management
   const [formData, setFormData] = useState({
     target: "",
     subject: "",
-    content: ""
+    content: "" // Ye ab HTML content store karega
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  // 🚀 Magic Function: Format text in the editor
+  const handleFormat = (command: string, value: string | undefined = undefined) => {
+    document.execCommand(command, false, value);
+    editorRef.current?.focus();
+  };
+
+  const handleAddLink = () => {
+    const url = prompt("Enter the URL link:");
+    if (url) handleFormat("createLink", url);
+  };
+
+  const handleAddMedia = () => {
+    const url = prompt("Enter the Image URL:");
+    if (url) handleFormat("insertImage", url);
+  };
+
   const handleSendEmail = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Grab the final HTML content from our custom editor
+    const finalContent = editorRef.current?.innerHTML || "";
+    
+    if (!finalContent.trim()) {
+      alert("Email content cannot be empty!");
+      return;
+    }
+
     setIsSending(true);
     setShowSuccess(false);
 
@@ -34,6 +62,11 @@ export default function ComposePage() {
         subject: "",
         content: ""
       });
+      
+      // Clear the visual editor
+      if (editorRef.current) {
+        editorRef.current.innerHTML = "";
+      }
 
       // Hide success message after 4 seconds
       setTimeout(() => {
@@ -128,7 +161,7 @@ export default function ComposePage() {
 
             <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent my-6"></div>
 
-            {/* 💻 Cinematic Rich Text Editor UI */}
+            {/* 💻 FULLY FUNCTIONAL Cinematic Rich Text Editor UI */}
             <div className="relative group/editor">
               <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500/30 to-fuchsia-500/30 rounded-2xl blur opacity-0 group-focus-within/editor:opacity-100 transition duration-500"></div>
               
@@ -137,19 +170,20 @@ export default function ComposePage() {
                 {/* Editor Toolbar */}
                 <div className="bg-[#111111] border-b border-white/5 px-4 py-3 flex items-center gap-2 overflow-x-auto custom-scrollbar">
                   <div className="flex bg-white/[0.03] rounded-lg p-1 border border-white/5">
-                    <button type="button" className="p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-md text-sm font-bold w-9 transition-colors">B</button>
-                    <button type="button" className="p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-md text-sm italic w-9 transition-colors">I</button>
-                    <button type="button" className="p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-md text-sm underline w-9 transition-colors">U</button>
+                    {/* Pro Tip: onMouseDown={e => e.preventDefault()} rokk deta hai in buttons ko focus chheen ne se, taaki selected text selected hi rahe! */}
+                    <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => handleFormat("bold")} className="p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-md text-sm font-bold w-9 transition-colors">B</button>
+                    <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => handleFormat("italic")} className="p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-md text-sm italic w-9 transition-colors">I</button>
+                    <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => handleFormat("underline")} className="p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-md text-sm underline w-9 transition-colors">U</button>
                   </div>
                   
                   <div className="w-px h-6 bg-white/10 mx-2"></div>
                   
                   <div className="flex bg-white/[0.03] rounded-lg p-1 border border-white/5">
-                    <button type="button" className="px-3 py-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-md text-sm flex items-center gap-2 transition-colors">
+                    <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={handleAddLink} className="px-3 py-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-md text-sm flex items-center gap-2 transition-colors">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
                       Link
                     </button>
-                    <button type="button" className="px-3 py-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-md text-sm flex items-center gap-2 transition-colors">
+                    <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={handleAddMedia} className="px-3 py-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-md text-sm flex items-center gap-2 transition-colors">
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                       Media
                     </button>
@@ -157,23 +191,24 @@ export default function ComposePage() {
 
                   <div className="w-px h-6 bg-white/10 mx-2"></div>
                   
-                  <select className="text-sm bg-white/[0.03] border border-white/5 rounded-lg px-3 py-2 focus:outline-none text-slate-300 cursor-pointer appearance-none outline-none">
-                    <option className="bg-[#0a0a0a]">Normal Text</option>
-                    <option className="bg-[#0a0a0a]">Heading 1</option>
-                    <option className="bg-[#0a0a0a]">Heading 2</option>
+                  <select 
+                    onChange={(e) => handleFormat("formatBlock", e.target.value)}
+                    className="text-sm bg-white/[0.03] border border-white/5 rounded-lg px-3 py-2 focus:outline-none text-slate-300 cursor-pointer outline-none"
+                  >
+                    <option value="P" className="bg-[#0a0a0a]">Normal Text</option>
+                    <option value="H1" className="bg-[#0a0a0a]">Heading 1</option>
+                    <option value="H2" className="bg-[#0a0a0a]">Heading 2</option>
                   </select>
                 </div>
                 
-                {/* Editor Textarea */}
-                <textarea 
-                  name="content"
-                  value={formData.content}
-                  onChange={handleInputChange}
-                  required
-                  rows={10}
-                  placeholder="Initiate your message sequence here..."
-                  className="w-full p-6 resize-y outline-none text-slate-300 bg-transparent min-h-[250px] placeholder-slate-700 leading-relaxed custom-scrollbar"
-                ></textarea>
+                {/* 🚀 Our Custom contentEditable Div behaving like a textarea */}
+                <div 
+                  ref={editorRef}
+                  contentEditable
+                  data-placeholder="Initiate your message sequence here..."
+                  className="w-full p-6 outline-none text-slate-300 bg-transparent min-h-[250px] leading-relaxed custom-scrollbar cursor-text empty:before:content-[attr(data-placeholder)] empty:before:text-slate-600 [&_b]:font-bold [&_i]:italic [&_u]:underline [&_h1]:text-3xl [&_h1]:font-extrabold [&_h1]:text-white [&_h1]:mb-4 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-white [&_h2]:mb-3 [&_a]:text-indigo-400 [&_a]:underline [&_img]:max-w-full [&_img]:rounded-lg [&_img]:my-4"
+                  onInput={(e) => setFormData(prev => ({ ...prev, content: e.currentTarget.innerHTML }))}
+                ></div>
               </div>
             </div>
 

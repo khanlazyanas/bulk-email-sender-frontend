@@ -1,13 +1,12 @@
 import Link from "next/link";
 
 export default function DashboardPage() {
-  // Ye temporary dummy data hai UI design ke liye. 
-  // Baad me ise Hono API se replace karenge.
+  // Fake stats data for UI
   const stats = [
-    { label: "Total Emails Sent", value: "45,231", trend: "+12.5%", isPositive: true, icon: "📤" },
-    { label: "Average Open Rate", value: "32.4%", trend: "+2.1%", isPositive: true, icon: "📖" },
-    { label: "Click-Through Rate", value: "12.8%", trend: "-0.4%", isPositive: false, icon: "🖱️" },
-    { label: "Bounce Rate", value: "1.2%", trend: "-0.1%", isPositive: true, icon: "⚠️" }, // Kam bounce rate accha hota hai
+    { label: "Total Outbound", value: "45,231", trend: "+12.5%", isPositive: true, icon: "🚀", color: "indigo" },
+    { label: "Average Open Rate", value: "32.4%", trend: "+2.1%", isPositive: true, icon: "👁️", color: "fuchsia" },
+    { label: "Click-Through Rate", value: "12.8%", trend: "-0.4%", isPositive: false, icon: "⚡", color: "rose" },
+    { label: "Bounce Rate", value: "1.2%", trend: "-0.1%", isPositive: true, icon: "🛡️", color: "emerald" }, 
   ];
 
   const recentCampaigns = [
@@ -18,84 +17,139 @@ export default function DashboardPage() {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 relative z-10 pt-4 pb-12">
       
+      {/* 🌌 Background Ambient Glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-indigo-600/10 blur-[150px] rounded-full pointer-events-none"></div>
+
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 relative z-10">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Dashboard Overview</h1>
-          <p className="text-sm text-slate-500 mt-1">Monitor your email campaign performance and statistics.</p>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20 mb-4">
+            <span className="w-2 h-2 rounded-full bg-indigo-400 shadow-[0_0_8px_rgba(129,140,248,1)] animate-pulse"></span>
+            <span className="text-xs font-semibold text-indigo-300 tracking-wide uppercase">Command Center</span>
+          </div>
+          <h1 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white to-white/60 tracking-tight">
+            Dashboard Overview
+          </h1>
+          <p className="text-sm text-slate-400 mt-2 font-medium">
+            Monitor real-time telemetry and campaign performance metrics.
+          </p>
         </div>
+        
+        {/* Magic Compose Button */}
         <Link 
           href="/compose"
-          className="inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors shadow-sm"
+          className="relative inline-flex h-11 overflow-hidden rounded-xl p-[1px] focus:outline-none group/btn hover:shadow-[0_0_30px_-5px_rgba(99,102,241,0.5)] transition-shadow duration-500"
         >
-          <span>✏️</span> Compose Email
+          <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#c084fc_0%,#4f46e5_50%,#c084fc_100%)] opacity-70 group-hover/btn:opacity-100 transition-opacity" />
+          <span className="inline-flex h-full w-full items-center justify-center rounded-xl bg-[#030712] px-6 py-2 text-sm font-bold text-white backdrop-blur-3xl transition-all group-hover/btn:bg-[#030712]/70 gap-2">
+            <svg className="w-4 h-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" /></svg>
+            New Broadcast
+          </span>
         </Link>
       </div>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* ✨ Holographic Stats Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 relative z-10">
         {stats.map((stat, index) => (
-          <div key={index} className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-2xl">{stat.icon}</span>
-              <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
-                stat.isPositive ? "bg-emerald-50 text-emerald-700" : "bg-rose-50 text-rose-700"
+          <div key={index} className="group relative bg-[#050505]/80 backdrop-blur-2xl border border-white/10 p-6 rounded-2xl hover:border-white/20 transition-all duration-500 overflow-hidden hover:-translate-y-1 hover:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]">
+            
+            {/* Inner Hover Glow */}
+            <div className={`absolute -right-10 -top-10 w-32 h-32 blur-3xl rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-700 ${
+              stat.color === 'indigo' ? 'bg-indigo-500' : 
+              stat.color === 'fuchsia' ? 'bg-fuchsia-500' : 
+              stat.color === 'rose' ? 'bg-rose-500' : 'bg-emerald-500'
+            }`}></div>
+
+            <div className="flex items-center justify-between mb-6 relative z-10">
+              <div className="w-10 h-10 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-center shadow-inner group-hover:bg-white/[0.05] transition-colors">
+                <span className="text-xl filter drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">{stat.icon}</span>
+              </div>
+              <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide border ${
+                stat.isPositive 
+                  ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shadow-[0_0_15px_-3px_rgba(16,185,129,0.2)]" 
+                  : "bg-rose-500/10 text-rose-400 border-rose-500/20 shadow-[0_0_15px_-3px_rgba(244,63,94,0.2)]"
               }`}>
+                {stat.isPositive ? (
+                  <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
+                ) : (
+                  <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
+                )}
                 {stat.trend}
               </span>
             </div>
-            <div>
-              <p className="text-sm font-medium text-slate-500 mb-1">{stat.label}</p>
-              <h3 className="text-2xl font-bold text-slate-900">{stat.value}</h3>
+            
+            <div className="relative z-10">
+              <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">{stat.label}</p>
+              <h3 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">
+                {stat.value}
+              </h3>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Recent Campaigns Table Section */}
-      <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
-        <div className="px-6 py-5 border-b border-slate-200 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-slate-900">Recent Campaigns</h2>
-          <button className="text-sm text-blue-600 font-medium hover:text-blue-700">View All</button>
-        </div>
+      {/* 💻 Cinematic Recent Campaigns Table */}
+      <div className="relative group perspective pt-4">
         
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="bg-slate-50 border-b border-slate-200 text-xs uppercase tracking-wider text-slate-500 font-semibold">
-                <th className="px-6 py-3">Campaign Name</th>
-                <th className="px-6 py-3">Date</th>
-                <th className="px-6 py-3">Status</th>
-                <th className="px-6 py-3 text-right">Emails Sent</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-200">
-              {recentCampaigns.map((campaign) => (
-                <tr key={campaign.id} className="hover:bg-slate-50 transition-colors">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">
-                    {campaign.name}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
-                    {campaign.date}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                      campaign.status === "Completed" 
-                        ? "bg-emerald-100 text-emerald-800" 
-                        : "bg-amber-100 text-amber-800"
-                    }`}>
-                      {campaign.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-600 text-right font-medium">
-                    {campaign.sent.toLocaleString()}
-                  </td>
+        {/* Outer Glow */}
+        <div className="absolute -inset-1 bg-gradient-to-b from-indigo-500/10 to-transparent rounded-[2rem] blur-xl opacity-50 group-hover:opacity-100 transition duration-1000 pointer-events-none"></div>
+
+        <div className="relative bg-[#050505]/80 backdrop-blur-3xl border border-white/10 rounded-[1.5rem] shadow-[0_0_80px_-20px_rgba(0,0,0,1)] overflow-hidden">
+          
+          <div className="px-6 py-5 border-b border-white/5 bg-white/[0.01] flex items-center justify-between">
+            <h2 className="text-base font-bold text-white tracking-wide">Recent Operations</h2>
+            <button className="text-xs font-bold text-indigo-400 hover:text-indigo-300 transition-colors uppercase tracking-wider">View Log</button>
+          </div>
+          
+          <div className="overflow-x-auto custom-scrollbar">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-white/[0.02] border-b border-white/5 text-[10px] uppercase tracking-widest text-slate-500 font-bold">
+                  <th className="px-6 py-5">Campaign Protocol</th>
+                  <th className="px-6 py-5">Timestamp</th>
+                  <th className="px-6 py-5">Status</th>
+                  <th className="px-6 py-5 text-right">Packets Sent</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-white/5">
+                {recentCampaigns.map((campaign) => (
+                  <tr key={campaign.id} className="hover:bg-white/[0.03] transition-colors group/row">
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm font-bold text-slate-200 group-hover/row:text-white transition-colors flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-white/[0.02] border border-white/10 flex items-center justify-center">
+                          <svg className="w-4 h-4 text-slate-400 group-hover/row:text-indigo-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                        </div>
+                        {campaign.name}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-slate-400 font-mono tracking-tight group-hover/row:text-slate-300 transition-colors">
+                        {campaign.date}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold tracking-wide border ${
+                        campaign.status === "Completed" 
+                          ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shadow-[0_0_15px_-3px_rgba(16,185,129,0.2)]" 
+                          : "bg-amber-500/10 text-amber-400 border-amber-500/20 shadow-[0_0_15px_-3px_rgba(245,158,11,0.2)]"
+                      }`}>
+                        {campaign.status === "Completed" && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,1)]"></span>}
+                        {campaign.status === "Draft" && <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,1)] animate-pulse"></span>}
+                        {campaign.status}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-right">
+                      <div className="text-sm font-black text-transparent bg-clip-text bg-gradient-to-r from-slate-300 to-slate-500 font-mono">
+                        {campaign.sent.toLocaleString()}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       

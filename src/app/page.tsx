@@ -60,7 +60,7 @@ export default function Home() {
             <span className="text-xs sm:text-sm font-semibold text-slate-200 group-hover:text-white transition-colors relative z-10">Next.js Architecture Live</span>
           </div>
 
-          {/* Epic God-Tier Heading - Adjusted for Mobile */}
+          {/* Epic God-Tier Heading */}
           <div className="space-y-4 sm:space-y-6 relative z-10">
             <h1 className="text-5xl sm:text-6xl md:text-[5.5rem] font-extrabold tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-white/90 to-white/30 leading-[1.1] pb-2 drop-shadow-2xl">
               Outreach, <br />
@@ -104,21 +104,21 @@ export default function Home() {
         {/* 💻 The Masterpiece: 3D Holographic Dashboard Mockup */}
         <div className="mt-16 sm:mt-28 w-full max-w-6xl mx-auto relative group perspective px-2 sm:px-6" style={{ perspective: '2500px' }}>
           
-          {/* Floating Holographic Metric Card (Left) */}
-          <div className="absolute -left-10 top-20 z-30 hidden lg:flex flex-col gap-1 bg-[#050505]/80 backdrop-blur-2xl border border-white/10 p-4 rounded-2xl shadow-[0_0_40px_-10px_rgba(168,85,247,0.3)] animate-[bounce_4s_infinite] pointer-events-none">
-            <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">Delivery Rate</div>
-            <div className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-200">99.8%</div>
-            <div className="text-[10px] text-emerald-500/80 flex items-center gap-1"><svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg> +2.4% today</div>
+          {/* 🔥 FIXED: Floating Holographic Metric Card (Left) NOW VISIBLE ON MOBILE 🔥 */}
+          <div className="absolute -left-2 sm:-left-10 top-10 sm:top-20 z-40 flex flex-col gap-1 bg-[#050505]/95 backdrop-blur-3xl border border-white/10 p-3 sm:p-4 rounded-xl sm:rounded-2xl shadow-[0_0_40px_-10px_rgba(168,85,247,0.5)] animate-[bounce_4s_infinite] pointer-events-none scale-[0.65] sm:scale-100 origin-top-left">
+            <div className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">Delivery Rate</div>
+            <div className="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-200">99.8%</div>
+            <div className="text-[9px] sm:text-[10px] text-emerald-500/80 flex items-center gap-1"><svg className="w-2.5 h-2.5 sm:w-3 sm:h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg> +2.4% today</div>
           </div>
 
-          {/* Floating Holographic Metric Card (Right) */}
-          <div className="absolute -right-6 bottom-32 z-30 hidden lg:flex flex-col gap-1 bg-[#050505]/80 backdrop-blur-2xl border border-white/10 p-4 rounded-2xl shadow-[0_0_40px_-10px_rgba(99,102,241,0.3)] animate-[bounce_5s_infinite_0.5s] pointer-events-none">
-            <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">Emails Sent</div>
-            <div className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-indigo-200">1.2M+</div>
-            <div className="flex -space-x-2 mt-1">
-               <div className="w-5 h-5 rounded-full bg-rose-500 border border-[#050505]"></div>
-               <div className="w-5 h-5 rounded-full bg-amber-500 border border-[#050505]"></div>
-               <div className="w-5 h-5 rounded-full bg-emerald-500 border border-[#050505]"></div>
+          {/* 🔥 FIXED: Floating Holographic Metric Card (Right) NOW VISIBLE ON MOBILE 🔥 */}
+          <div className="absolute -right-2 sm:-right-6 bottom-16 sm:bottom-32 z-40 flex flex-col gap-1 bg-[#050505]/95 backdrop-blur-3xl border border-white/10 p-3 sm:p-4 rounded-xl sm:rounded-2xl shadow-[0_0_40px_-10px_rgba(99,102,241,0.5)] animate-[bounce_5s_infinite_0.5s] pointer-events-none scale-[0.65] sm:scale-100 origin-bottom-right">
+            <div className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">Emails Sent</div>
+            <div className="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-indigo-200">1.2M+</div>
+            <div className="flex -space-x-1.5 sm:-space-x-2 mt-1">
+               <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-rose-500 border border-[#050505]"></div>
+               <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-amber-500 border border-[#050505]"></div>
+               <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-emerald-500 border border-[#050505]"></div>
             </div>
           </div>
 
@@ -216,7 +216,7 @@ export default function Home() {
                           fill="none" 
                           stroke="url(#gradient)" 
                           strokeWidth="6" 
-                          className="drop-shadow-[0_0_15px_rgba(139,92,246,0.8)]"
+                          className="drop-shadow-[0_0_15px_rgba(139,92,246,0.8)] animate-[pulse_4s_ease-in-out_infinite]"
                         />
                         <defs>
                           <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">

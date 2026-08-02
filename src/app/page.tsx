@@ -29,14 +29,14 @@ export default function Home() {
           <span className="font-bold tracking-tight text-xl text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-indigo-300 group-hover:to-fuchsia-300 transition-all duration-500">MailSender<span className="text-fuchsia-500">.</span></span>
         </div>
         
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-6 sm:gap-8">
           <Link href="/login" className="hidden sm:block text-sm font-semibold text-slate-400 hover:text-white transition-colors tracking-wide">
             Sign In
           </Link>
           
-          <Link href="/login" className="relative inline-flex h-11 overflow-hidden rounded-full p-[1px] focus:outline-none group shadow-[0_0_20px_-5px_rgba(168,85,247,0.4)] hover:shadow-[0_0_30px_-5px_rgba(168,85,247,0.6)] transition-all duration-500">
+          <Link href="/login" className="relative inline-flex h-10 sm:h-11 overflow-hidden rounded-full p-[1px] focus:outline-none group shadow-[0_0_20px_-5px_rgba(168,85,247,0.4)] hover:shadow-[0_0_30px_-5px_rgba(168,85,247,0.6)] transition-all duration-500">
             <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#a855f7_50%,#E2CBFF_100%)] opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
-            <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-[#050505] px-7 py-1 text-sm font-bold text-white backdrop-blur-3xl transition-all group-hover:bg-[#050505]/60 gap-2">
+            <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-[#050505] px-5 sm:px-7 py-1 text-xs sm:text-sm font-bold text-white backdrop-blur-3xl transition-all group-hover:bg-[#050505]/60 gap-2">
               Start Building
             </span>
           </Link>
@@ -44,37 +44,37 @@ export default function Home() {
       </nav>
 
       {/* ✨ Cinematic Hero Section */}
-      <main className="relative z-10 flex flex-col items-center justify-center pt-28 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto text-center space-y-10 relative">
+      <main className="relative z-10 flex flex-col items-center justify-center pt-20 sm:pt-28 pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto text-center space-y-8 sm:space-y-10 relative">
           
           {/* Floating Glow Behind Text */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[50%] bg-indigo-500/20 blur-[120px] rounded-full pointer-events-none"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] sm:w-[60%] h-[50%] bg-indigo-500/20 blur-[120px] rounded-full pointer-events-none"></div>
 
           {/* Premium Pill Badge */}
-          <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/[0.02] border border-white/[0.05] backdrop-blur-xl shadow-[0_4px_24px_-8px_rgba(0,0,0,0.5)] cursor-default group hover:bg-white/[0.04] transition-all duration-500 relative overflow-hidden">
+          <div className="inline-flex items-center gap-3 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-white/[0.02] border border-white/[0.05] backdrop-blur-xl shadow-[0_4px_24px_-8px_rgba(0,0,0,0.5)] cursor-default group hover:bg-white/[0.04] transition-all duration-500 relative overflow-hidden mx-auto">
             <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 via-fuchsia-500/10 to-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <span className="relative flex h-2.5 w-2.5">
+            <span className="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-fuchsia-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-fuchsia-500 shadow-[0_0_10px_rgba(217,70,239,0.8)]"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 sm:h-2.5 sm:w-2.5 bg-fuchsia-500 shadow-[0_0_10px_rgba(217,70,239,0.8)]"></span>
             </span>
-            <span className="text-sm font-semibold text-slate-200 group-hover:text-white transition-colors relative z-10">Next.js Architecture Live</span>
+            <span className="text-xs sm:text-sm font-semibold text-slate-200 group-hover:text-white transition-colors relative z-10">Next.js Architecture Live</span>
           </div>
 
-          {/* Epic God-Tier Heading */}
-          <div className="space-y-6 relative z-10">
-            <h1 className="text-6xl sm:text-7xl md:text-[5.5rem] font-extrabold tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-white/90 to-white/30 leading-[1.05] pb-2 drop-shadow-2xl">
+          {/* Epic God-Tier Heading - Adjusted for Mobile */}
+          <div className="space-y-4 sm:space-y-6 relative z-10">
+            <h1 className="text-5xl sm:text-6xl md:text-[5.5rem] font-extrabold tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-white/90 to-white/30 leading-[1.1] pb-2 drop-shadow-2xl">
               Outreach, <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-fuchsia-400 to-rose-400 filter drop-shadow-[0_0_40px_rgba(168,85,247,0.4)]">
                 Perfected for Scale.
               </span>
             </h1>
-            <p className="max-w-2xl mx-auto text-lg md:text-xl text-slate-400 font-medium leading-relaxed">
+            <p className="max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-slate-400 font-medium leading-relaxed px-4 sm:px-0">
               The ultimate bulk email engine. Lightning-fast UI, real-time analytics, and a developer-first ecosystem built for modern teams.
             </p>
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-5 pt-8 relative z-10">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5 pt-6 sm:pt-8 relative z-10 w-full sm:w-auto px-4 sm:px-0">
             <Link 
               href="/login" 
               className="relative inline-flex h-14 overflow-hidden rounded-2xl p-[1px] focus:outline-none group w-full sm:w-auto hover:shadow-[0_0_60px_-15px_rgba(168,85,247,0.7)] transition-shadow duration-500"
@@ -102,17 +102,17 @@ export default function Home() {
         </div>
 
         {/* 💻 The Masterpiece: 3D Holographic Dashboard Mockup */}
-        <div className="mt-28 w-full max-w-6xl mx-auto relative group perspective" style={{ perspective: '2500px' }}>
+        <div className="mt-16 sm:mt-28 w-full max-w-6xl mx-auto relative group perspective px-2 sm:px-6" style={{ perspective: '2500px' }}>
           
           {/* Floating Holographic Metric Card (Left) */}
-          <div className="absolute -left-12 top-20 z-30 hidden lg:flex flex-col gap-1 bg-[#050505]/80 backdrop-blur-2xl border border-white/10 p-4 rounded-2xl shadow-[0_0_40px_-10px_rgba(168,85,247,0.3)] animate-[bounce_4s_infinite] pointer-events-none">
+          <div className="absolute -left-10 top-20 z-30 hidden lg:flex flex-col gap-1 bg-[#050505]/80 backdrop-blur-2xl border border-white/10 p-4 rounded-2xl shadow-[0_0_40px_-10px_rgba(168,85,247,0.3)] animate-[bounce_4s_infinite] pointer-events-none">
             <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">Delivery Rate</div>
             <div className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-200">99.8%</div>
             <div className="text-[10px] text-emerald-500/80 flex items-center gap-1"><svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg> +2.4% today</div>
           </div>
 
           {/* Floating Holographic Metric Card (Right) */}
-          <div className="absolute -right-8 bottom-32 z-30 hidden lg:flex flex-col gap-1 bg-[#050505]/80 backdrop-blur-2xl border border-white/10 p-4 rounded-2xl shadow-[0_0_40px_-10px_rgba(99,102,241,0.3)] animate-[bounce_5s_infinite_0.5s] pointer-events-none">
+          <div className="absolute -right-6 bottom-32 z-30 hidden lg:flex flex-col gap-1 bg-[#050505]/80 backdrop-blur-2xl border border-white/10 p-4 rounded-2xl shadow-[0_0_40px_-10px_rgba(99,102,241,0.3)] animate-[bounce_5s_infinite_0.5s] pointer-events-none">
             <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">Emails Sent</div>
             <div className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-indigo-200">1.2M+</div>
             <div className="flex -space-x-2 mt-1">
@@ -123,32 +123,32 @@ export default function Home() {
           </div>
 
           {/* Intense Glowing Aura */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] h-[100%] bg-indigo-600/20 blur-[150px] rounded-[3rem] group-hover:bg-fuchsia-600/25 transition-all duration-1000 pointer-events-none"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] sm:w-[100%] h-[90%] sm:h-[100%] bg-indigo-600/20 blur-[100px] sm:blur-[150px] rounded-[3rem] group-hover:bg-fuchsia-600/25 transition-all duration-1000 pointer-events-none"></div>
           
-          {/* Main 3D Container */}
-          <div className="relative rounded-[2rem] border border-white/10 bg-[#030303]/90 backdrop-blur-3xl shadow-[0_0_100px_-20px_rgba(139,92,246,0.4)] [transform:rotateX(15deg)_scale(0.95)_translateY(-20px)] group-hover:[transform:rotateX(0deg)_scale(1)_translateY(0)] transition-all duration-1000 ease-[cubic-bezier(0.23,1,0.32,1)] overflow-hidden">
+          {/* Main 3D Container - Scaled softly for mobile */}
+          <div className="relative rounded-xl sm:rounded-[2rem] border border-white/10 bg-[#030303]/90 backdrop-blur-3xl shadow-[0_0_100px_-20px_rgba(139,92,246,0.4)] [transform:rotateX(5deg)_scale(1)] sm:[transform:rotateX(15deg)_scale(0.95)_translateY(-20px)] sm:group-hover:[transform:rotateX(0deg)_scale(1)_translateY(0)] transition-all duration-1000 ease-[cubic-bezier(0.23,1,0.32,1)] overflow-hidden">
             
             {/* The Glare Sweep Effect */}
             <div className="absolute inset-0 z-50 bg-gradient-to-tr from-white/0 via-white/[0.07] to-white/0 translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-[1500ms] ease-in-out pointer-events-none"></div>
 
             {/* Top Browser Bar */}
-            <div className="flex items-center gap-2 px-5 py-4 border-b border-white/5 bg-white/[0.01]">
-              <div className="w-3.5 h-3.5 rounded-full bg-[#ff5f56] shadow-[0_0_10px_rgba(255,95,86,0.5)]"></div>
-              <div className="w-3.5 h-3.5 rounded-full bg-[#ffbd2e] shadow-[0_0_10px_rgba(255,189,46,0.5)]"></div>
-              <div className="w-3.5 h-3.5 rounded-full bg-[#27c93f] shadow-[0_0_10px_rgba(39,201,63,0.5)]"></div>
-              <div className="ml-6 px-4 py-1.5 rounded-lg bg-white/[0.03] text-xs text-slate-400 font-semibold font-mono border border-white/5 flex items-center gap-2 shadow-inner">
-                <svg className="w-3.5 h-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+            <div className="flex items-center gap-2 px-3 sm:px-5 py-3 sm:py-4 border-b border-white/5 bg-white/[0.01]">
+              <div className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full bg-[#ff5f56] shadow-[0_0_10px_rgba(255,95,86,0.5)]"></div>
+              <div className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full bg-[#ffbd2e] shadow-[0_0_10px_rgba(255,189,46,0.5)]"></div>
+              <div className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full bg-[#27c93f] shadow-[0_0_10px_rgba(39,201,63,0.5)]"></div>
+              <div className="ml-3 sm:ml-6 px-3 py-1 sm:py-1.5 rounded-lg bg-white/[0.03] text-[10px] sm:text-xs text-slate-400 font-semibold font-mono border border-white/5 flex items-center gap-2 shadow-inner">
+                <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
                 app.mailsender.com/dashboard
               </div>
             </div>
 
             {/* 🔥 Ultra-Premium Dashboard UI Inside 🔥 */}
-            <div className="bg-[#010101] aspect-[16/9] sm:aspect-[21/9] relative flex overflow-hidden">
+            <div className="bg-[#010101] aspect-[4/3] sm:aspect-[21/9] relative flex overflow-hidden">
                {/* Precision Grid Pattern */}
-               <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:32px_32px]"></div>
+               <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:24px_24px] sm:bg-[size:32px_32px]"></div>
                
-               {/* Left Sidebar */}
-               <div className="hidden sm:flex flex-col w-[280px] h-full border-r border-white/5 p-6 space-y-8 bg-white/[0.01] relative z-10">
+               {/* Left Sidebar (Hidden on ultra-small screens for realism) */}
+               <div className="hidden md:flex flex-col w-[280px] h-full border-r border-white/5 p-6 space-y-8 bg-white/[0.01] relative z-10">
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-lg bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center animate-pulse"><div className="w-3 h-3 bg-indigo-400 rounded-sm"></div></div>
                     <div className="h-5 w-24 bg-white/10 rounded-md"></div>
@@ -167,32 +167,32 @@ export default function Home() {
                </div>
 
                {/* Main Content Area */}
-               <div className="flex-1 p-8 relative z-10 flex flex-col gap-8">
+               <div className="flex-1 p-4 sm:p-8 relative z-10 flex flex-col gap-4 sm:gap-8">
                   {/* Top Header Fake */}
                   <div className="flex justify-between items-center w-full">
-                     <div className="space-y-2">
-                        <div className="h-8 w-48 bg-white/10 rounded-lg"></div>
-                        <div className="h-4 w-32 bg-white/5 rounded-md"></div>
+                     <div className="space-y-1 sm:space-y-2">
+                        <div className="h-6 sm:h-8 w-32 sm:w-48 bg-white/10 rounded-lg"></div>
+                        <div className="h-3 sm:h-4 w-20 sm:w-32 bg-white/5 rounded-md"></div>
                      </div>
-                     <div className="flex gap-4 items-center">
-                        <div className="h-10 w-32 bg-white/5 border border-white/10 rounded-lg"></div>
-                        <div className="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-500 to-fuchsia-500 p-[2px]"><div className="w-full h-full bg-black rounded-full"></div></div>
+                     <div className="flex gap-2 sm:gap-4 items-center">
+                        <div className="h-8 sm:h-10 w-20 sm:w-32 bg-white/5 border border-white/10 rounded-lg"></div>
+                        <div className="h-8 sm:h-10 w-8 sm:w-10 rounded-full bg-gradient-to-br from-indigo-500 to-fuchsia-500 p-[2px]"><div className="w-full h-full bg-black rounded-full"></div></div>
                      </div>
                   </div>
                   
                   {/* High-End Stats Cards */}
-                  <div className="grid grid-cols-3 gap-6">
-                     <div className="h-28 bg-white/[0.02] border border-white/5 rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden group-hover:border-indigo-500/30 transition-colors duration-700">
-                        <div className="absolute top-0 right-0 w-20 h-20 bg-indigo-500/10 blur-xl rounded-full"></div>
-                        <div className="h-4 w-24 bg-white/20 rounded"></div>
-                        <div className="h-8 w-32 bg-white/80 rounded"></div>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-6">
+                     <div className="h-20 sm:h-28 bg-white/[0.02] border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-5 flex flex-col justify-between relative overflow-hidden group-hover:border-indigo-500/30 transition-colors duration-700">
+                        <div className="absolute top-0 right-0 w-16 sm:w-20 h-16 sm:h-20 bg-indigo-500/10 blur-xl rounded-full"></div>
+                        <div className="h-3 sm:h-4 w-16 sm:w-24 bg-white/20 rounded"></div>
+                        <div className="h-6 sm:h-8 w-20 sm:w-32 bg-white/80 rounded"></div>
                      </div>
-                     <div className="h-28 bg-white/[0.02] border border-white/5 rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden group-hover:border-fuchsia-500/30 transition-colors duration-700 delay-100">
-                        <div className="absolute top-0 right-0 w-20 h-20 bg-fuchsia-500/10 blur-xl rounded-full"></div>
-                        <div className="h-4 w-24 bg-white/20 rounded"></div>
-                        <div className="h-8 w-32 bg-white/80 rounded"></div>
+                     <div className="h-20 sm:h-28 bg-white/[0.02] border border-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-5 flex flex-col justify-between relative overflow-hidden group-hover:border-fuchsia-500/30 transition-colors duration-700 delay-100">
+                        <div className="absolute top-0 right-0 w-16 sm:w-20 h-16 sm:h-20 bg-fuchsia-500/10 blur-xl rounded-full"></div>
+                        <div className="h-3 sm:h-4 w-16 sm:w-24 bg-white/20 rounded"></div>
+                        <div className="h-6 sm:h-8 w-20 sm:w-32 bg-white/80 rounded"></div>
                      </div>
-                     <div className="h-28 bg-white/[0.02] border border-white/5 rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden group-hover:border-rose-500/30 transition-colors duration-700 delay-200">
+                     <div className="hidden sm:flex h-28 bg-white/[0.02] border border-white/5 rounded-2xl p-5 flex-col justify-between relative overflow-hidden group-hover:border-rose-500/30 transition-colors duration-700 delay-200">
                         <div className="absolute top-0 right-0 w-20 h-20 bg-rose-500/10 blur-xl rounded-full"></div>
                         <div className="h-4 w-24 bg-white/20 rounded"></div>
                         <div className="h-8 w-32 bg-white/80 rounded"></div>
@@ -200,18 +200,16 @@ export default function Home() {
                   </div>
 
                   {/* 📈 REAL-TIME SVG LINE CHART 📈 */}
-                  <div className="flex-1 bg-white/[0.01] border border-white/5 rounded-2xl p-6 relative flex flex-col overflow-hidden">
-                    <div className="flex justify-between items-center mb-6 z-10">
-                       <div className="h-5 w-40 bg-white/20 rounded"></div>
-                       <div className="h-6 w-24 bg-white/5 rounded-full border border-white/10"></div>
+                  <div className="flex-1 bg-white/[0.01] border border-white/5 rounded-xl sm:rounded-2xl p-4 sm:p-6 relative flex flex-col overflow-hidden">
+                    <div className="flex justify-between items-center mb-4 sm:mb-6 z-10">
+                       <div className="h-4 sm:h-5 w-24 sm:w-40 bg-white/20 rounded"></div>
+                       <div className="h-5 sm:h-6 w-16 sm:w-24 bg-white/5 rounded-full border border-white/10"></div>
                     </div>
                     
                     {/* The Chart Vector Graph */}
-                    <div className="absolute inset-x-0 bottom-0 h-[70%] w-full flex items-end">
-                      {/* Gradient Fill under the line */}
+                    <div className="absolute inset-x-0 bottom-0 h-[60%] sm:h-[70%] w-full flex items-end">
                       <div className="absolute inset-0 bg-gradient-to-t from-indigo-500/20 via-indigo-500/5 to-transparent w-full [clip-path:polygon(0%_100%,0%_60%,15%_65%,35%_40%,50%_50%,70%_20%,85%_35%,100%_10%,100%_100%)]"></div>
                       
-                      {/* Smooth SVG Line */}
                       <svg className="w-full h-full preserve-3d" viewBox="0 0 1000 300" preserveAspectRatio="none">
                         <path 
                           d="M0,200 C150,220 200,100 350,150 C500,200 600,50 700,80 C850,120 950,20 1000,40" 
@@ -230,13 +228,46 @@ export default function Home() {
                       </svg>
                       
                       {/* Glowing Data Point on the chart */}
-                      <div className="absolute right-[30%] top-[25%] w-4 h-4 bg-fuchsia-400 rounded-full border-4 border-black shadow-[0_0_20px_rgba(217,70,239,1)] animate-pulse"></div>
+                      <div className="absolute right-[30%] top-[25%] w-3 h-3 sm:w-4 sm:h-4 bg-fuchsia-400 rounded-full border-[3px] sm:border-4 border-black shadow-[0_0_20px_rgba(217,70,239,1)] animate-pulse"></div>
                     </div>
                   </div>
                </div>
 
                {/* Bottom Epic Glow Fade */}
                <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-[#000000] to-transparent z-20 pointer-events-none"></div>
+            </div>
+          </div>
+        </div>
+
+        {/* 🌟 NEW: Core Features / Social Proof Section */}
+        <div className="mt-32 max-w-7xl mx-auto w-full px-4 sm:px-6 relative z-10 border-t border-white/[0.05] pt-16">
+          <div className="text-center mb-12">
+             <h3 className="text-sm font-bold tracking-widest text-slate-500 uppercase">Engineered for absolute performance</h3>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+            {/* Feature 1 */}
+            <div className="bg-white/[0.02] border border-white/[0.05] rounded-3xl p-8 hover:bg-white/[0.04] transition-colors group">
+              <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <svg className="w-6 h-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+              </div>
+              <h4 className="text-xl font-bold text-white mb-3">Lightning Delivery</h4>
+              <p className="text-slate-400 text-sm leading-relaxed">Global edge network integration ensuring your emails hit the primary inbox within milliseconds.</p>
+            </div>
+            {/* Feature 2 */}
+            <div className="bg-white/[0.02] border border-white/[0.05] rounded-3xl p-8 hover:bg-white/[0.04] transition-colors group">
+              <div className="w-12 h-12 rounded-2xl bg-fuchsia-500/10 border border-fuchsia-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <svg className="w-6 h-6 text-fuchsia-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+              </div>
+              <h4 className="text-xl font-bold text-white mb-3">Real-time Telemetry</h4>
+              <p className="text-slate-400 text-sm leading-relaxed">Live streaming of open rates, bounces, and click-throughs straight to your command center.</p>
+            </div>
+            {/* Feature 3 */}
+            <div className="bg-white/[0.02] border border-white/[0.05] rounded-3xl p-8 hover:bg-white/[0.04] transition-colors group">
+              <div className="w-12 h-12 rounded-2xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <svg className="w-6 h-6 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+              </div>
+              <h4 className="text-xl font-bold text-white mb-3">Developer First API</h4>
+              <p className="text-slate-400 text-sm leading-relaxed">Seamlessly integrate with our robust REST endpoints. Built by developers, for developers.</p>
             </div>
           </div>
         </div>

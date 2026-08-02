@@ -89,7 +89,7 @@ export default function Home() {
             </Link>
 
             <Link 
-              href="https://github.com/thedevimapro/assignment" 
+              href="https://github.com/khanlazyanas/bulk-email-sender-frontend" 
               target="_blank"
               className="group inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 text-base font-semibold text-slate-300 hover:text-white border border-white/10 bg-white/5 hover:bg-white/10 rounded-2xl transition-all backdrop-blur-xl shadow-lg"
             >

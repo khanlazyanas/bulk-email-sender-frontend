@@ -60,11 +60,11 @@ export default function Home() {
             <span className="text-xs sm:text-sm font-semibold text-slate-200 group-hover:text-white transition-colors relative z-10">Next.js Architecture Live</span>
           </div>
 
-          {/* Epic God-Tier Heading */}
+          {/* Epic God-Tier Heading with Breathing Glow */}
           <div className="space-y-4 sm:space-y-6 relative z-10">
             <h1 className="text-5xl sm:text-6xl md:text-[5.5rem] font-extrabold tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-white/90 to-white/30 leading-[1.1] pb-2 drop-shadow-2xl">
               Outreach, <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-fuchsia-400 to-rose-400 filter drop-shadow-[0_0_40px_rgba(168,85,247,0.4)]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-fuchsia-400 to-rose-400 filter drop-shadow-[0_0_40px_rgba(168,85,247,0.4)] animate-pulse">
                 Perfected for Scale.
               </span>
             </h1>
@@ -102,17 +102,18 @@ export default function Home() {
         </div>
 
         {/* 💻 The Masterpiece: 3D Holographic Dashboard Mockup */}
-        <div className="mt-16 sm:mt-28 w-full max-w-6xl mx-auto relative group perspective px-2 sm:px-6" style={{ perspective: '2500px' }}>
+        <div className="mt-20 sm:mt-28 w-full max-w-6xl mx-auto relative group perspective px-2 sm:px-6" style={{ perspective: '2500px' }}>
           
-          {/* 🔥 FIXED: Floating Holographic Metric Card (Left) NOW VISIBLE ON MOBILE 🔥 */}
-          <div className="absolute -left-2 sm:-left-10 top-10 sm:top-20 z-40 flex flex-col gap-1 bg-[#050505]/95 backdrop-blur-3xl border border-white/10 p-3 sm:p-4 rounded-xl sm:rounded-2xl shadow-[0_0_40px_-10px_rgba(168,85,247,0.5)] animate-[bounce_4s_infinite] pointer-events-none scale-[0.65] sm:scale-100 origin-top-left">
+          {/* 🔥 FIXED FOR MOBILE: Floating Holographic Metric Card (Left) 🔥 */}
+          {/* Using `flex` instead of `hidden`, and carefully positioning via negative margins and smaller scales on mobile */}
+          <div className="absolute -left-2 sm:-left-12 -top-6 sm:top-20 z-40 flex flex-col gap-1 bg-[#050505]/95 backdrop-blur-3xl border border-white/10 p-3 sm:p-4 rounded-xl sm:rounded-2xl shadow-[0_0_40px_-10px_rgba(168,85,247,0.5)] animate-[bounce_4s_infinite] pointer-events-none scale-[0.75] sm:scale-100 origin-top-left">
             <div className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">Delivery Rate</div>
             <div className="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-200">99.8%</div>
             <div className="text-[9px] sm:text-[10px] text-emerald-500/80 flex items-center gap-1"><svg className="w-2.5 h-2.5 sm:w-3 sm:h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg> +2.4% today</div>
           </div>
 
-          {/* 🔥 FIXED: Floating Holographic Metric Card (Right) NOW VISIBLE ON MOBILE 🔥 */}
-          <div className="absolute -right-2 sm:-right-6 bottom-16 sm:bottom-32 z-40 flex flex-col gap-1 bg-[#050505]/95 backdrop-blur-3xl border border-white/10 p-3 sm:p-4 rounded-xl sm:rounded-2xl shadow-[0_0_40px_-10px_rgba(99,102,241,0.5)] animate-[bounce_5s_infinite_0.5s] pointer-events-none scale-[0.65] sm:scale-100 origin-bottom-right">
+          {/* 🔥 FIXED FOR MOBILE: Floating Holographic Metric Card (Right) 🔥 */}
+          <div className="absolute -right-2 sm:-right-8 -bottom-6 sm:bottom-32 z-40 flex flex-col gap-1 bg-[#050505]/95 backdrop-blur-3xl border border-white/10 p-3 sm:p-4 rounded-xl sm:rounded-2xl shadow-[0_0_40px_-10px_rgba(99,102,241,0.5)] animate-[bounce_5s_infinite_0.5s] pointer-events-none scale-[0.75] sm:scale-100 origin-bottom-right">
             <div className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">Emails Sent</div>
             <div className="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-indigo-200">1.2M+</div>
             <div className="flex -space-x-1.5 sm:-space-x-2 mt-1">
@@ -126,7 +127,7 @@ export default function Home() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] sm:w-[100%] h-[90%] sm:h-[100%] bg-indigo-600/20 blur-[100px] sm:blur-[150px] rounded-[3rem] group-hover:bg-fuchsia-600/25 transition-all duration-1000 pointer-events-none"></div>
           
           {/* Main 3D Container - Scaled softly for mobile */}
-          <div className="relative rounded-xl sm:rounded-[2rem] border border-white/10 bg-[#030303]/90 backdrop-blur-3xl shadow-[0_0_100px_-20px_rgba(139,92,246,0.4)] [transform:rotateX(5deg)_scale(1)] sm:[transform:rotateX(15deg)_scale(0.95)_translateY(-20px)] sm:group-hover:[transform:rotateX(0deg)_scale(1)_translateY(0)] transition-all duration-1000 ease-[cubic-bezier(0.23,1,0.32,1)] overflow-hidden">
+          <div className="relative rounded-xl sm:rounded-[2rem] border border-white/10 bg-[#030303]/90 backdrop-blur-3xl shadow-[0_0_100px_-20px_rgba(139,92,246,0.4)] [transform:rotateX(5deg)_scale(1)] sm:[transform:rotateX(15deg)_scale(0.95)_translateY(-20px)] sm:group-hover:[transform:rotateX(0deg)_scale(1)_translateY(0)] transition-all duration-1000 ease-[cubic-bezier(0.23,1,0.32,1)] overflow-hidden mt-4">
             
             {/* The Glare Sweep Effect */}
             <div className="absolute inset-0 z-50 bg-gradient-to-tr from-white/0 via-white/[0.07] to-white/0 translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-[1500ms] ease-in-out pointer-events-none"></div>
@@ -240,14 +241,15 @@ export default function Home() {
         </div>
 
         {/* 🌟 NEW: Core Features / Social Proof Section */}
-        <div className="mt-32 max-w-7xl mx-auto w-full px-4 sm:px-6 relative z-10 border-t border-white/[0.05] pt-16">
+        <div className="mt-32 sm:mt-40 max-w-7xl mx-auto w-full px-4 sm:px-6 relative z-10 border-t border-white/[0.05] pt-16">
           <div className="text-center mb-12">
              <h3 className="text-sm font-bold tracking-widest text-slate-500 uppercase">Engineered for absolute performance</h3>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 mb-16">
             {/* Feature 1 */}
             <div className="bg-white/[0.02] border border-white/[0.05] rounded-3xl p-8 hover:bg-white/[0.04] transition-colors group">
-              <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-[0_0_20px_rgba(99,102,241,0.1)]">
                 <svg className="w-6 h-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
               </div>
               <h4 className="text-xl font-bold text-white mb-3">Lightning Delivery</h4>
@@ -255,7 +257,7 @@ export default function Home() {
             </div>
             {/* Feature 2 */}
             <div className="bg-white/[0.02] border border-white/[0.05] rounded-3xl p-8 hover:bg-white/[0.04] transition-colors group">
-              <div className="w-12 h-12 rounded-2xl bg-fuchsia-500/10 border border-fuchsia-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <div className="w-12 h-12 rounded-2xl bg-fuchsia-500/10 border border-fuchsia-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-[0_0_20px_rgba(217,70,239,0.1)]">
                 <svg className="w-6 h-6 text-fuchsia-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
               </div>
               <h4 className="text-xl font-bold text-white mb-3">Real-time Telemetry</h4>
@@ -263,12 +265,39 @@ export default function Home() {
             </div>
             {/* Feature 3 */}
             <div className="bg-white/[0.02] border border-white/[0.05] rounded-3xl p-8 hover:bg-white/[0.04] transition-colors group">
-              <div className="w-12 h-12 rounded-2xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <div className="w-12 h-12 rounded-2xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-[0_0_20px_rgba(244,63,94,0.1)]">
                 <svg className="w-6 h-6 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
               </div>
               <h4 className="text-xl font-bold text-white mb-3">Developer First API</h4>
               <p className="text-slate-400 text-sm leading-relaxed">Seamlessly integrate with our robust REST endpoints. Built by developers, for developers.</p>
             </div>
+          </div>
+
+          {/* 💻 API Code Terminal Mockup (100x Developer Credibility) */}
+          <div className="max-w-4xl mx-auto w-full bg-[#050505] rounded-[2rem] border border-white/10 shadow-[0_0_80px_-20px_rgba(168,85,247,0.2)] overflow-hidden">
+             <div className="flex items-center justify-between px-6 py-4 border-b border-white/5 bg-white/[0.02]">
+                <div className="flex gap-2">
+                   <div className="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+                   <div className="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+                   <div className="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+                </div>
+                <div className="text-xs font-mono text-slate-500">api/send.ts</div>
+                <div className="w-12"></div> {/* spacer for centering */}
+             </div>
+             <div className="p-6 sm:p-8 text-sm sm:text-base font-mono leading-relaxed text-slate-300 overflow-x-auto">
+                <p><span className="text-fuchsia-400">import</span> {`{ MailSender }`} <span className="text-fuchsia-400">from</span> <span className="text-emerald-300">'@mailsender/node'</span>;</p>
+                <br />
+                <p><span className="text-indigo-400">const</span> mail <span className="text-fuchsia-400">=</span> <span className="text-indigo-400">new</span> <span className="text-amber-200">MailSender</span>(process.env.<span className="text-rose-300">MAILSENDER_API_KEY</span>);</p>
+                <br />
+                <p><span className="text-fuchsia-400">await</span> mail.<span className="text-amber-200">campaigns</span>.<span className="text-amber-200">send</span>({`{`}</p>
+                <p className="pl-6">audience_id: <span className="text-emerald-300">'aud_live_9a8b7c'</span>,</p>
+                <p className="pl-6">subject: <span className="text-emerald-300">'Welcome to the Future of Outreach 🚀'</span>,</p>
+                <p className="pl-6">template: <span className="text-emerald-300">'temp_welcome_v2'</span>,</p>
+                <p className="pl-6">track_telemetry: <span className="text-indigo-400">true</span></p>
+                <p>{`});`}</p>
+                <br />
+                <p className="text-slate-600 italic">// Campaign deployed to 10,000+ nodes in 120ms.</p>
+             </div>
           </div>
         </div>
 
